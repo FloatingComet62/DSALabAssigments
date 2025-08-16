@@ -45,7 +45,12 @@ Matrix inputMatrix(int a, int b) {
 }
 
 int main() {
-  Matrix matrix = inputMatrix(3, 4);
+  int rows, columns;
+  std::cout << "Number of rows: ";
+  std::cin >> rows;
+  std::cout << "Number of columns: ";
+  std::cin >> columns;
+  Matrix matrix = inputMatrix(rows, columns);
   for (int i = 0; i < matrix.row_count; i++) {
     int row_sum = 0;
     for (int j = 0; j < matrix.column_count; j++) {

@@ -54,7 +54,12 @@ Matrix inputMatrix(int a, int b) {
 }
 
 int main() {
-  Matrix matrix = inputMatrix(5, 4);
+  int rows, columns;
+  std::cout << "Number of rows: ";
+  std::cin >> rows;
+  std::cout << "Number of columns: ";
+  std::cin >> columns;
+  Matrix matrix = inputMatrix(rows, columns);
   Matrix transpose = matrix.transpose();
   std::cout << "Transposed matrix:\n";
   transpose.print();

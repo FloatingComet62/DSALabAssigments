@@ -62,10 +62,17 @@ std::optional<Matrix> multiply(Matrix a, Matrix b) {
 }
 
 int main() {
-  Matrix matrixA = inputMatrix(5, 5);
+  int rows, columns, columns2;
+  std::cout << "Number of rows for matrix 1: ";
+  std::cin >> rows;
+  std::cout << "Number of columns for matrix 1: ";
+  std::cin >> columns;
+  Matrix matrixA = inputMatrix(rows, columns);
   std::cout << "Matrix A\n";
   matrixA.print();
-  Matrix matrixB = inputMatrix(5, 5);
+  std::cout << "Number of columns for matrix 2: ";
+  std::cin >> columns;
+  Matrix matrixB = inputMatrix(columns, columns2);
   std::cout << "Matrix B\n";
   matrixB.print();
   auto result = multiply(matrixA, matrixB);
