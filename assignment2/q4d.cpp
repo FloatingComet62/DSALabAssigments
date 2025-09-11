@@ -10,7 +10,19 @@ std::string inputStr(std::string prompt) {
 }
 
 void sortStr(std::string& str) {
-  std::sort(str.begin(), str.end());
+  int n = str.size();
+  bool swappingOccurred;
+  for (int i = 0; i < n; i++) {
+    swappingOccurred = false;
+    for (int j = 0; j < n - i - 1; j++) {
+      if (str[j] <= str[j + 1]) continue;
+      swappingOccurred = true;
+      str[j    ] ^= str[j + 1];
+      str[j + 1] ^= str[j    ];
+      str[j    ] ^= str[j + 1];
+    }
+    if (!swappingOccurred) return;
+  }
 }
 
 int main() {

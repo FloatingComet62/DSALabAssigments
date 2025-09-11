@@ -7,19 +7,19 @@ int main() {
   std::cout << "Column size: ";
   std::cin >> column;
 
-  SparseMatrix matrixA(row, column);
+  SparseMatrix matrixA;
   matrixA.input();
 
   std::cout << "Matrix A:\n";
   matrixA.print();
 
-  SparseMatrix matrixB(column, row);
+  SparseMatrix matrixB;
   matrixB.input();
 
   std::cout << "Matrix B:\n";
   matrixB.print();
 
-  SparseMatrix product(row, row);
+  SparseMatrix product;
 
   for (int i = 0; i < row; i++) {
     for (int j = 0;j < row; j++) {

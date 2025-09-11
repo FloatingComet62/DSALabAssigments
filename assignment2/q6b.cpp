@@ -7,13 +7,13 @@ int main() {
   std::cout << "Column size: ";
   std::cin >> column;
 
-  SparseMatrix matrixA(row, column);
+  SparseMatrix matrixA;
   matrixA.input();
 
   std::cout << "Matrix A:\n";
   matrixA.print();
 
-  SparseMatrix matrixB(row, column);
+  SparseMatrix matrixB;
   matrixB.input();
 
   std::cout << "Matrix B:\n";
@@ -21,9 +21,12 @@ int main() {
 
   SparseMatrix sum(matrixA);
 
-  for (auto& matrixBItem : matrixB.items) {
+  // for (auto& matrixBItem : matrixB.items) {
+  for (int i = 0; i < matrixB.items.items_length; i++) {
+    Item matrixBItem = matrixB.items.data[i];
     bool found = false;
-    for (auto& sumItem : sum.items) {
+    for (int j = 0; j < sum.items.items_length; j++) {
+      Item sumItem = sum.items.data[j];
       if (matrixBItem.equate(sumItem)) {
         sumItem.data += matrixBItem.data;
         found = true;
@@ -32,7 +35,7 @@ int main() {
     if (found) {
       continue;
     }
-    sum.items.push_back(matrixBItem);
+    sum.items.append(matrixBItem);
   }
 
   std::cout << "Sum:\n";

@@ -7,15 +7,15 @@ int main() {
   std::cout << "Column size: ";
   std::cin >> column;
 
-  SparseMatrix original(row, column);
+  SparseMatrix original;
   original.input();
 
   std::cout << "Original matrix:\n";
   original.print();
 
-  SparseMatrix transposed(column, row);
-  for (const auto& item : original.items) {
-    transposed.items.push_back(item.transpose());
+  SparseMatrix transposed;
+  for (int i = 0) {
+    transposed.items.append(item.transpose());
   }
 
   std::cout << "Transposed matrix:\n";

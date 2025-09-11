@@ -1,5 +1,5 @@
+#include <cstdlib>
 #include <iostream>
-#include <vector>
 
 class Item {
 public:
@@ -25,54 +25,74 @@ public:
     return Item(this->columnIdx, this->rowIdx, this->data);
   }
 };
+
+class Items {
+  int items_capacity;
+public:
+  int items_length;
+  Item* data;
+  Items() {
+    this->data = (Item*)malloc(5 * sizeof(*this->data));
+    this->items_length = 0;
+    this->items_capacity = 5;
+  }
+  void append(Item new_item) {
+    if (this->items_capacity < this->items_length + 1) {
+      this->reserve(this->items_capacity + 10);
+    }
+    this->data[this->items_length++] = new_item;
+  }
+  void reserve(int new_capacity) {
+    this->data = (Item*)realloc(this->data, new_capacity);
+    this->items_capacity = new_capacity;
+  }
+};
+
 class SparseMatrix {
 public:
-  std::vector<Item> items;
-  int numRows;
-  int numColumns;
-  SparseMatrix(int row_count, int column_count) {
-    this->numRows = row_count;
-    this->numColumns = column_count;
+  Items items;
+
+  SparseMatrix() {
+    items = Items();
+    items.data[0] = Item(0, 0, 0);
   }
-  bool addItem(int rowIdx, int columnIdx, int data) {
-    if (rowIdx >= this->numRows) {
-      std::cout << "Invalid row";
-      return false;
+  void addItem(int rowIdx, int columnIdx, int data) {
+    if (rowIdx > this->items.data[0].rowIdx) {
+      this->items.data[0].rowIdx = rowIdx;
     }
-    if (rowIdx >= this->numColumns) {
-      std::cout << "Invalid row";
-      return false;
+    if (columnIdx > this->items.data[0].columnIdx) {
+      this->items.data[0].columnIdx = columnIdx;
     }
-    this->items.push_back(Item(rowIdx, columnIdx, data));
-    return true;
+    this->items.data[0].data++;
+    items.append(Item(rowIdx, columnIdx, data));
   }
-  int getItem(int rowIdx, int columnIdx, int defaultValue) {
-    for (auto item : this->items) {
-      if (!item.equate(rowIdx, columnIdx)) continue;
-      return item.data;
-    }
+  int getItem(int rowIdx, int columnIdx, int defaultValue) { 
     return defaultValue;
   }
 
   int EXIT_INT = 0;
   void input() {
-      std::cout << "Item insertion menu: \n";
-      while (true) {
-        int rowIdx, columnIdx, data;
-        std::cout << "Enter row: "; std::cin >> rowIdx;
-        std::cout << "Enter column: "; std::cin >> columnIdx;
-        std::cout << "Enter data: "; std::cin >> data;
-        if (data == EXIT_INT) break;
-        if (!this->addItem(rowIdx, columnIdx, data)) {
-          std::cout << "Row & column out of range, failed to insert\n";
-        }
+    std::cout << "Enter number of rows: ";
+    std::cin >> this->items.data[0].rowIdx;
+    std::cout << "Enter number of column: ";
+    std::cin >> this->items.data[0].columnIdx;
+
+    for (int i = 0; i < this->items.data[0].rowIdx; i++) {
+      for (int j = 0; j < this->items.data[0].columnIdx; j++) {
+        std::cout << "Enter item (" << i << ", " << j << "): ";
+        int value;
+        std::cin >> value;
+        if (value == 0) continue;
+        this->addItem(i, j, value);
       }
+    }
   }
 
   void print() {
-    for (int i = 0; i < this->numRows; i++) {
-      for (int j = 0; j < this->numColumns; j++) {
-        std::cout << this->getItem(i, j, 0) << " ";
+    for (int i = 0; i < this->items.data[0].rowIdx; i++) {
+      for (int j = 0; j < this->items.data[0].columnIdx; j++) {
+        int value = this->getItem(i, j, 0);
+        std::cout << value << " ";
       }
       std::cout << "\n";
     }
