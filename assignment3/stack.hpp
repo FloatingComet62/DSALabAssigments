@@ -1,13 +1,12 @@
 #include <climits>
 #include <cstdlib>
-#include <iostream>
 
 class Stack {
-  int* items;
   int top;
   int capacity;
 
 public:
+  int* items;
   Stack() {
     top = -1;
     capacity = 10;
@@ -31,7 +30,6 @@ public:
   }
   int pop() {
     if (isEmpty()) {
-      std::cout << "Stack is empty\n";
       return INT_MIN;
     }
     return items[top--];
