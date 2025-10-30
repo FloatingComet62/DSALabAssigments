@@ -27,6 +27,4 @@ int main() {
     }
     std::cout << std::endl;
   }
-
-  // it's not possible
 }
