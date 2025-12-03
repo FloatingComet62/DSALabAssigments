@@ -34,7 +34,7 @@ void heap_sort(std::vector<int>& arr) {
 }
 
 int main() {
-  std::vector<int> arr = { 9, 4, 3, 8, 10, 2, 5 };
+  std::vector<int> arr = {9, 4, 3, 8, 10, 2, 5};
   heap_sort(arr);
 
   for (int i = 0; i < arr.size(); i++) {
